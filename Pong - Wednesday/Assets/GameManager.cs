@@ -54,21 +54,14 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void ResetGame()
-    {
-        playerScore = 0;
-        computerScore = 0;
-        ResetField();
+    //TO DO
+    public void ResetGame(){
+    
     }
-
+    
+    //TO DO
     private void Update()
     {
-        if (gameover)
-        {
-            if (Input.GetKey(KeyCode.R))
-            {
-                SceneManager.LoadScene("Pong");
-            }
-        }
+        
     }
 }
