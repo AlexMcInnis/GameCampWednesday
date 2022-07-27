@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class ScoringZone : MonoBehaviour
 {
-    public EventTrigger.TriggerEvent score;
+    public TMP_Text scoreText;
+    private int score;
+    public GameManager gm;
+    void start()
+    {
+        score = 0;
+    }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
@@ -13,8 +20,13 @@ public class ScoringZone : MonoBehaviour
         
         if(ball != null)
         {
-            BaseEventData eventData = new BaseEventData(EventSystem.current);
-            score.Invoke(eventData);
+            score++;
+            scoreText.text = score.ToString();
+            gm.ResetField();
+            if(score > 0)
+            {
+                gm.GameOver();
+            }
         }
     }
 }
