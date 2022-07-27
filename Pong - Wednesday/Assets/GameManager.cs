@@ -7,61 +7,31 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public BallMovement ball;
-    private int playerScore;
-    private int computerScore;
-    public TMP_Text player;
-    public TMP_Text computer;
-    //public TMP_Text gameOverText;
+    public TMP_Text gameOverText;
     public PlayerMovement pPaddle;
     public AIMovement cPaddle;
-    private bool gameover = false;
-    //public AudioSource music;
+    public GameObject replayBtn;
 
     private void Start()
     {
-
+        replayBtn.SetActive(false);
+        gameOverText.gameObject.SetActive(false);
     }
 
-    public void PlayerScores()
+    public void ResetField()
     {
-        playerScore++;
-        player.text = playerScore.ToString();
-        ResetField();
+        pPaddle.ResetPosition();
+        cPaddle.ResetPosition();
+        ball.ResetPosition();
+    }
+    public void GameOver(){
+        gameOverText.gameObject.SetActive(true);
+        ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        replayBtn.SetActive(true);
     }
 
-    public void ComputerScores()
+    public void Replay()
     {
-        computerScore++;
-        computer.text = computerScore.ToString();
-        ResetField();
-    }
-
-    private void ResetField()
-    {
-        if(computerScore == 5 || playerScore == 5)
-        {
-            gameover = true;
-            //gameOverText.gameObject.SetActive(true);
-            ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            //music.Stop();
-        }
-        else
-        {
-            this.ball.ResetPosition();
-            pPaddle.ResetPosition();
-            cPaddle.ResetPosition();
-            ball.AddStartingForce();
-        }
-
-    }
-    //TO DO
-    public void ResetGame(){
-    
-    }
-    
-    //TO DO
-    private void Update()
-    {
-        
+        SceneManager.LoadScene("SampleScene");
     }
 }
